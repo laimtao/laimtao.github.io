@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
+
+<meta charset="utf-8" >
+
+<title>Blog</title>
+<meta name="keywords" content="Blog, Blog">
+<meta name="description" content="mysql基础：
+三大范式：
+
+第一范式：强调的是列的原子性，即数据库表的每一列都是不可分割的原子数据项。
+第二范式：要求实体的属性完全依赖于主关键字。所谓完全依赖是指不能存在仅依赖主关键字一部分的属性。
+第三范式：任何非主属性不依赖于其它">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="Blog">
+<meta property="og:description" content="mysql基础：
+三大范式：
+
+第一范式：强调的是列的原子性，即数据库表的每一列都是不可分割的原子数据项。
+第二范式：要求实体的属性完全依赖于主关键字。所谓完全依赖是指不能存在仅依赖主关键字一部分的属性。
+第三范式：任何非主属性不依赖于其它">
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <meta name="generator" content="Hexo 7.2.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="http://example.com">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="http://example.com">
+        <h1 class="site-title">Blog</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title"></h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2024-06-30</span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <p><strong>mysql基础：</strong></p>
+<p>三大范式：</p>
+<ul>
+<li>第一范式：强调的是列的原子性，即数据库表的每一列都是不可分割的原子数据项。</li>
+<li>第二范式：要求实体的属性完全依赖于主关键字。所谓完全依赖是指不能存在仅依赖主关键字一部分的属性。</li>
+<li>第三范式：任何非主属性不依赖于其它非主属性。</li>
+</ul>
+<p>视图是一种虚拟表，本身是不具有数据的，占用很少的内存空间。<br>对视图中的数据进行增加、删除和修改操作时，数据表中的数据会相应地发生变化，反之亦然</p>
+<p>多表查询时，每个字段前都指明其所在的表。<br>一旦取了别名就只能用别名。<br>聚合函数不能嵌套。</p>
+<p>内连接：合并两个表，两张表中都有的数据才会显示。<br>外连接：合并两个表，结果包括不匹配的行。如果返回显示左表所有数据和右表中满足where 条件的数据，就是左外连接。如果返回显示右表所有数据和左表中满足where 条件的数据，就是右外连接。<br>语法：左表 left&#x2F;right join 右表 on 条件</p>
+<p>having不能单独使用，只能与group by一起使用，如果过滤条件中使用了聚合函数，必须使用having。</p>
+<p><strong>sql语法：</strong><br>select …<br>from … (left&#x2F;right) join … on …<br>where …<br>group by …<br>having …<br>order by asc&#x2F;desc<br>limit …</p>
+<p><strong>sql执行过程：</strong><br>from-&gt;on-&gt;join-&gt;where-&gt;group by-&gt;having-&gt;select-&gt;order by-&gt;limit<br>列的别名只能在order by中使用，不能再where中使用，根据执行过程先后顺序可以看出。<br>在执行这些步骤时，每个步骤都会产生一个虚拟表，然后将这个虚拟表传入下一个步骤作为输入</p>
+<p><strong>视图：</strong></p>
+<p>视图是一种虚拟表，本身是不具有数据的，占用很少的内存空间。<br>对视图中的数据进行增加、删除和修改操作时，数据表中的数据会相应地发生变化，反之亦然</p>
+<p><strong>存储过程：</strong></p>
+<p>存储过程能够将复杂的SQL封装在一起，应用程序无须关注存储过程内部复杂的SQL逻辑，只需要简单地调用存储过程。</p>
+<p>执行过程：存储过程预先存储在 MySQL 服务器上，需要执行的时候，客户端只需要向服务器端发出调用<br>存储过程的命令，服务器端就可以把预先存储好的这一系列 SQL 语句全部执行。</p>
+<p>优点：简化操作，提高了sql语句的重用性，减少了开发工作量</p>
+<p>缺点：可移植性差，不适合高并发的场景</p>
+<p>相较于函数，存储过程是没有返回值的。</p>
+<p><strong>约束：</strong></p>
+<p>防止数据库中存在不符合语义规定的数据和防止因错误信息的输入输出造成无效操作或错误信息</p>
+<p>约束和索引的区别在于：约束是为了保证表数据的完整性，索引是为了提高查询效率。</p>
+<p><strong>索引：</strong></p>
+<p>索引（Index）是帮助MySQL高效获取数据的数据结构。可以简单理解为“排好序的快速查找数据结构”，满足特定查找算法。</p>
+<p>常见的索引结构有: B 树， B+树和 Hash。</p>
+<h5 id="Hash表："><a href="#Hash表：" class="headerlink" title="Hash表："></a>Hash表：</h5><p>哈希表是键值对的集合，通过键(key)即可快速取出对应的值(value)，因此哈希表可以快速检索数据</p>
+<p><strong>为什么MySQL 没有使用其作为索引的数据结构呢？</strong></p>
+<p>Hash 索引不支持顺序和范围查询</p>
+<h5 id="B-树-B-树："><a href="#B-树-B-树：" class="headerlink" title="B 树&amp; B+树："></a>B 树&amp; B+树：</h5><p><strong>B 树&amp; B+树两者有何异同呢？</strong></p>
+<ul>
+<li>B 树的所有节点既存放键(key) 也存放 数据(data)，而 B+树只有叶子节点存放 key 和 data，其他内节点只存放 key。</li>
+<li>B 树的叶子节点都是独立的;B+树的叶子节点有一条引用链指向与它相邻的叶子节点。</li>
+<li>B 树的检索的过程相当于对范围内的每个节点的关键字做二分查找，可能还没有到达叶子节点，检索就结束了。而 B+树的检索效率就很稳定了，任何查找都是从根节点到叶子节点的过程，叶子节点的顺序检索很明显。</li>
+</ul>
+<p>优点：</p>
+<ul>
+<li>提高数据检索的效率，降低数据库的IO成本。</li>
+<li>通过创建唯一索引，可以保证数据库表中每一行数据的唯一性</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>创建索引和维护索引要耗费时间，并且随着数据量的增加，所耗费的时间也会增加。</li>
+<li>索引需要使用物理文件存储，也会耗费一定空间。</li>
+</ul>
+<p>如果我们想快速的定位到需要查找的记录在哪些数据页，我们可以为快速定位记录所在的数据页而建<br>立一个目录。建这个目录必须完成下边这些事：</p>
+<ul>
+<li>下一个数据页中用户记录的主键值必须大于上一个页中用户记录的主键值。</li>
+<li>给所有的页建立一个目录项。</li>
+</ul>
+<p><strong>索引类型：</strong><br>1.主键索引 （primary key）<br>2.唯一索引（unique）<br>3.普通索引 （index）<br>4.全文索引 （full text）</p>
+<p>6.联合索引：使用表中的多个字段创建索引</p>
+<p><strong>最左前缀匹配原则</strong>：在检索数据时从联合索引的最左边开始匹配，遇到范围查询就会停止，比如&gt;和&lt;。</p>
+<p>例如：b &#x3D; 2 如果建立(a,b)顺序的索引，是匹配不到(a,b)索引的；但是如果查询条件是a &#x3D; 1 and b &#x3D; 2或者a&#x3D;1(又或者是b &#x3D; 2 and b &#x3D; 1)就可以，因为优化器会自动调整a,b的顺序。再比如a &#x3D; 1 and b &#x3D; 2 and c &gt; 3 and d &#x3D; 4 如果建立(a,b,c,d)顺序的索引，d是用不到索引的，因为c字段是一个范围查询，它之后的字段会停止匹配。</p>
+<p><strong>聚簇索引与非聚簇索引：</strong></p>
+<p>聚簇索引特点：</p>
+<ul>
+<li><p>聚集索引即索引结构和数据一起存放的索引，找到了索引也就找到了数据。主键索引属于聚集索引。</p>
+</li>
+<li><p>一般情况下主键会默认创建聚簇索引，且一张表只允许存在一个聚簇索引。</p>
+</li>
+</ul>
+<p>优点：</p>
+<ul>
+<li>数据访问更快，因为聚簇索引将索引和数据保存在同一个B+树中，因此从聚簇索引中获取数据比非聚簇索引更快</li>
+<li>聚簇索引对于主键的排序查找和范围查找速度非常快</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>更新主键的代价很高，对于InnoDB表，我们一般定义主键为不可更新</li>
+<li>依赖于有序的数据</li>
+</ul>
+<p>非聚簇索引特点：</p>
+<ul>
+<li>非聚集索引即索引结构和数据分开存放的索引。</li>
+<li>二级索引属于非聚集索引。</li>
+<li>非聚集索引的叶子节点并不一定存放数据的指针，因为二级索引的叶子节点就存放的是主键，根据主键再回表查数据。</li>
+</ul>
+<p>优点：更新代价比聚集索引要小 </p>
+<p>缺点：</p>
+<ol>
+<li>跟聚集索引一样，非聚集索引也依赖于有序的数据</li>
+<li>可能会二次查询(回表) :这应该是非聚集索引最大的缺点了。 当查到索引对应的指针或主键后，可能还需要根据指针或主键再到数据文件或表中查询。</li>
+</ol>
+<h5 id="非聚集索引一定回表查询吗-覆盖索引"><a href="#非聚集索引一定回表查询吗-覆盖索引" class="headerlink" title="非聚集索引一定回表查询吗(覆盖索引)?"></a>非聚集索引一定回表查询吗(覆盖索引)?</h5><p>非聚集索引不一定回表查询。</p>
+<blockquote>
+<p>试想一种情况，用户准备使用 SQL 查询用户名，而用户名字段正好建立了索引。</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT name FROM table WHERE name=&#x27;guang19&#x27;;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>那么这个索引的 key 本身就是 name，查到对应的 name 直接返回就行了，无需回表查询。</p>
+</blockquote>
+<p><strong>索引创建：</strong></p>
+<p>在建表时创建索引：</p>
+<ul>
+<li>创建普通索引：INDEX(year_publication)      默认以字段名命名</li>
+<li>创建唯一索引：UNIQUE INDEX uk_idx_id(id)</li>
+<li>创建单列索引：INDEX single_idx_name(name(20))</li>
+<li>创建组合索引：INDEX multi_idx(id,name,age)</li>
+<li>创建全文索引：FULLTEXT INDEX futxt_idx_info(info)</li>
+</ul>
+<p>在已存在的表上创建索引：</p>
+<p>ALTER TABLE table_name ADD [UNIQUE | FULLTEXT | SPATIAL][INDEX | KEY]<br>[index_name] (col_name[length],…) [ASC | DESC]</p>
+<p>在已存在的表上删除索引：</p>
+<p>ALTER TABLE table_name DROP INDEX index_name;</p>
+<p>哪些情况适合创建索引：</p>
+<ul>
+<li>字段的数值有唯一性的限制</li>
+<li>作为 WHERE 条件的字段</li>
+<li>经常 GROUP BY 和 ORDER BY 的列</li>
+<li>多表 JOIN 连接操作时，对用于连接的字段创建索引</li>
+</ul>
+<p>哪些情况不适合创建索引：</p>
+<ul>
+<li><p>在where中使用不到的字段，不要设置索引</p>
+</li>
+<li><p>数据量小的表最好不要使用索引</p>
+</li>
+<li><p>避免对经常更新的表创建过多的索引</p>
+</li>
+</ul>
+<p><strong>事务：</strong></p>
+<p>事务是逻辑上的一组操作</p>
+<p>作用：</p>
+<p>可以保证多个对数据库的操作（也就是 SQL 语句）构成一个逻辑上的整体。构成这个逻辑上的整体的这些数据库操作遵循：<strong>要么全部执行成功,要么全部不执行</strong> 。</p>
+<p><strong>事务ACID特性：</strong></p>
+<ol>
+<li><strong>原子性</strong>（<code>Atomicity</code>） ： 事务是最小的执行单位，不允许分割。</li>
+<li><strong>一致性</strong>（<code>Consistency</code>）： 执行事务前后，数据保持一致，例如转账业务中，无论事务是否成功，转账者和收款人的总额应该是不变的；</li>
+<li><strong>隔离性</strong>（<code>Isolation</code>）： 并发访问数据库时，一个用户的事务不被其他事务所干扰，各并发事务之间数据库是独立的；</li>
+<li><strong>持久性</strong>（<code>Durabilily</code>）： 一个事务被提交之后。它对数据库中数据的改变是持久的，即使数据库发生故障也不应该对其有任何影响。</li>
+</ol>
+<p><strong>数据并发问题：</strong></p>
+<ol>
+<li><p>脏写（ Dirty Write ）<br> 对于两个事务 Session A、Session B，如果事务Session A 修改了另一个未提交事务Session B 修改的数据，那就意味着发生了脏写</p>
+</li>
+<li><p>脏读（ Dirty Read ）<br> 对于两个事务 Session A、Session B，Session A 读取了已经被 Session B 更新但还没有被提交的字段。之后若 Session B 回滚，Session A 读取的内容就是临时且无效的。</p>
+</li>
+<li><p>不可重复读（ Non-Repeatable Read ）<br> 对于两个事务Session A、Session B，Session A 读取了一个字段且没有提交事务，然后 Session B 更新了该字段。 之后Session A 再次读取同一个字段， 值就不同了。那就意味着发生了不可重复读。</p>
+</li>
+<li><p>幻读（ Phantom ）<br> 对于两个事务Session A、Session B, Session A 从一个表中读取了一个字段, 然后 Session B 在该表中插入了一些新的行。 之后, 如果 Session A 再次读取同一个表, 就会多出几行。那就意味着发生了幻读。</p>
+</li>
+</ol>
+<p><strong>4个隔离级别：</strong></p>
+<hr>
+<table>
+<thead>
+<tr>
+<th>隔离级别</th>
+<th>脏读</th>
+<th>不可重复读</th>
+<th>幻读</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>READ-UNCOMMITTED（读未提交）</td>
+<td>√</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>READ-COMMITTED（读已提交）</td>
+<td>×</td>
+<td>√</td>
+<td>√</td>
+</tr>
+<tr>
+<td>REPEATABLE-READ（可重复读）</td>
+<td>×</td>
+<td>×</td>
+<td>√</td>
+</tr>
+<tr>
+<td>SERIALIZABLE（可串行化）</td>
+<td>×</td>
+<td>×</td>
+<td>×</td>
+</tr>
+</tbody></table>
+<p>一个事务与其他事务隔离的程度为隔离级别。（也就是相互之间影响的影响的程度导致隔离级别，影响程度越小，那么就说明隔离级别越大）</p>
+<p>MySQL 的隔离级别基于锁和 MVCC 机制共同实现的。</p>
+<p>SERIALIZABLE 隔离级别，是通过锁来实现的。除了 SERIALIZABLE 隔离级别，其他的隔离级别都是基于 MVCC 实现。</p>
+<p>mvvc：<code>多版本并发控制</code>，主要是为了提高数据库的<code>并发性能</code>。同一行数据平时发生读写请求时，会<code>上锁阻塞</code>住。但mvcc用更好的方式去处理读—写请求，做到在发生读—写请求冲突时<code>不用加锁</code>。</p>
+<p>mysql默认隔离级别为REPEATABLE-READ（可重复读），oracle只支持 Serializable（串行化）级别和 Read committed读已提交）两种级别，默认隔离级别为 Read committed（读已提交）。</p>
+<p><strong>锁：</strong></p>
+<p>从数据操作的类型划分：共享锁、排他锁</p>
+<ul>
+<li>共享锁：英文用S 表示。针对同一份数据，多个事务的读操作可以同时进行而不会互相影响，相互不阻塞的</li>
+<li>排他锁：英文用X 表示。当前写操作没有完成前，它会阻断其他锁。这样就能确保在给定的时间里，只有一个事务能执行写入，并防止其他用户读取正在写入的同一资源。</li>
+</ul>
+<p>从对待锁的态度划分:乐观锁、悲观锁</p>
+<ul>
+<li><strong>悲观锁</strong>（Pessimistic Locking）<br>悲观锁是一种思想，顾名思义，就是很悲观，对数据被其他事务的修改持保守态度，会通过数据库自身<br>的锁机制来实现，从而保证数据操作的排它性。<br>悲观锁总是假设最坏的情况，<strong>每次去拿数据的时候都认为别人会修改，所以每次在拿数据的时候都会上锁</strong>，这样别人想拿这个数据就会阻塞直到它拿到锁（共享资源每次只给一个线程使用，其它线程阻塞，用完后再把资源转让给其它线程）。比如行锁，表锁等，读锁，写锁等，都是在做操作之前先上锁，当其他线程想要访问数据时，都需要阻塞挂起。Java中synchronized 和ReentrantLock 等独占锁就是悲观锁思想的实现。</li>
+<li><strong>乐观锁</strong>（Optimistic Locking）<br>乐观锁认为对同一数据的并发操作不会总发生，属于小概率事件，<strong>不用每次都对数据上锁，但是在更新</strong><br><strong>的时候会判断一下在此期间别人有没有去更新这个数据</strong>，也就是不采用数据库自身的锁机制，而是通过<br>程序来实现。在程序上，我们可以采用CAS机制实现。</li>
+</ul>
+<p>乐观锁和悲观锁的适用场景：</p>
+<ol>
+<li>乐观锁适合读操作多的场景，相对来说写的操作比较少。它的优点在于程序实现， 不存在死锁<br> 问题，不过适用场景也会相对乐观，因为它阻止不了除了程序以外的数据库操作。</li>
+<li>悲观锁适合写操作多的场景，因为写的操作具有排它性。采用悲观锁的方式，可以在数据库层<br> 面阻止其他事务对该数据的操作权限，防止读 - 写和写 - 写的冲突。</li>
+</ol>
+
+        </div>
+          
+        <div class="top-div">
+          
+        </div>
+          
+      </div>
+    </div>
+
+    
+  </div>
+
+
+
+
+
+
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/laimtao" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+
