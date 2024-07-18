@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
+
+<meta charset="utf-8" >
+
+<title>java基础</title>
+<meta name="keywords" content="java基础, Blog">
+<meta name="description" content="线程池原理：1.线程池在初始化时会创建一定的工作线程，数量为corepoolsize，这些工作线程处于空闲状态2.当有认为分配给线程池时，线程池先判断当前线程数量是否小于corepoolsize，如果小于corepoolsize则用线程池中">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="java基础">
+<meta property="og:description" content="线程池原理：1.线程池在初始化时会创建一定的工作线程，数量为corepoolsize，这些工作线程处于空闲状态2.当有认为分配给线程池时，线程池先判断当前线程数量是否小于corepoolsize，如果小于corepoolsize则用线程池中">
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <meta name="generator" content="Hexo 7.2.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="http://example.com">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="http://example.com">
+        <h1 class="site-title">Blog</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">java基础</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2024-07-18</span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <h4 id="线程池原理："><a href="#线程池原理：" class="headerlink" title="线程池原理："></a>线程池原理：</h4><p>1.线程池在初始化时会创建一定的工作线程，数量为corepoolsize，这些工作线程处于空闲状态<br>2.当有认为分配给线程池时，线程池先判断当前线程数量是否小于corepoolsize，如果小于corepoolsize则用线程池中的一个线程来执行任务。<br>3.如果corepoolsize的线程都在执行任务则先判断阻塞队列是否已经满了，如果没有满则将线程放进阻塞队列，如果满了会创建一个新线程。<br>4.如果创建一个线程后使当前运行的线程数量大于maximumpoolsize，则交给拒绝策略来处理任务。</p>
+<h4 id="二-线程池核心配置参数："><a href="#二-线程池核心配置参数：" class="headerlink" title="二.线程池核心配置参数："></a>二.线程池核心配置参数：</h4><p>1.corepoolsize：线程池中的核心线程数<br>2.workqueue：阻塞队列，基于数组，链表的阻塞队列，按先进先出进行任务<br>3.maximumpoolsize：线程池允许的最大线程数<br>4.keepalivetime：线程空闲时的存活时间<br>5.timeunit：存活时间的单位<br>6.threadFactory：创建线程的工厂<br>7.hander：拒绝策略，线程达到maximumsize线程数后且workqueue已满的情况下，再向线程池提交任务后执行对应的拒绝策略<br><strong>4种拒绝策略：</strong><br>1.discardpolicy，当提交任务到线程池被拒绝时，线程池会丢弃这个被拒绝的任务<br>2.discardoldpolicy，当提交任务到线程池被拒绝时，线程池会丢弃阻塞队列最老的任务<br>3.callerRunspolicy，由提交任务的线程处理该任务<br>4.abortpolicy，丢弃任务并抛出异常（默认拒绝策略）</p>
+<p><strong>如何创建线程池：</strong></p>
+<p>通过spring提供的线程池ThreadPoolTaskExecutor来创建线程池，<br>首先需要我们传入我们自定义的参数，最大线程数，最小线程数这些，然后将封装好的executor对象通过@bean注入到spring容器中<br>我们要用的时候就从spring容器里取出executor对象并调用他的submit方法，submit方法里要传入要执行的任务，这个任务是实现了callable接口的，然后会返回一个future对象，这个future对象可以获取任务执行返回的值</p>
+<p><strong>如何确保多线程任务同时处理完成：</strong></p>
+<p>创建一个 CountDownLatch对象，计数器初始化为任务数量<br>每次遍历执行任务完成后调用这个对象的countdown方法，计数器数量会减一，然后我们在主线程调用await方法去阻塞线程，当计数器数量减为0才会放行</p>
+<p><strong>ArrayList扩容机制</strong></p>
+<p>ArrayList初始容量为10<br>ArrayList扩容会创建一个新的数组，新容量会是当前容量的1.5倍，将原数组中的元素复制到新数组中。</p>
+<p><strong>hashtable和hashmap：</strong><br>1.线程安全性：hashtable是线程安全的，hashmap是线程不安全的，<br>hashtable的所有方法都是同步的，因此多线程环境下hahstable可以避免并发问题，但也会降低性能。hashmap的方法不是同步的，因此多线程环境下需要自己进行同步处理<br>2.null值：hashtable不允许键或值为null，否则会抛出空指针异常，hashmap允许键或值为null</p>
+<p><strong>HashMap原理</strong></p>
+<p>HashMap是一种基于哈希表实现的，它使用键值对来存储数据<br>HashMap使用一个数组（初始容量为 16 ）来存储数据，每个数组元素为一个桶。一个桶可以包含一个或多个键值对。<br>当添加一个键值对时，使用哈希函数来计算该键的哈希码，这个哈希码用来决定该键值对在数组中的索引位置。<br>如果该位置上没有其它键值对，则直接将该键值对存储在该位置上。如果该位置上已经存在一个或多个键值对，则遍历链表或树，查找是否已经存在相同的键。如果存在，则更新对应的值。如果不存在，则将该键值对添加到链表或树的末尾。<br>当发生哈希冲突时，使用链表或红黑树来解决冲突。<br>如果链表长度超过了 8，则将链表转化为红黑树<br>如果树的节点数量少于 6，则将树转换回链表</p>
+<p><strong>HashMap扩容机制</strong></p>
+<p>当数组的使用量达到了负载因子（默认为 0.75）时，会进行扩容，创建一个新的数组，数组长度为原来的两倍，重新计算所有键值对的哈希码并将它们放入新的哈希桶中</p>
+<p><strong>反射：</strong><br>反射是指在程序的运行状态中，可以构造任意一个类的对象，我们可以获取任意类中的属性和方法，访问任意一个对象中的属性和方法，这种动态获取类信息和访问对象方法的功能就是反射</p>
+<p><strong>项目中哪里用到过反射？</strong></p>
+<p>在iot设备管理系统中用到过，当时是要将一个对象的属性和值转化为键值对的形式存入一张字典表，因为这个对象有很多个属性，一个个取太麻烦了，所以我就用了反射去遍历获取对象里的所有属性和值，然后将取出的数据封装好存入数据库中</p>
+<p><strong>泛型：</strong><br>在声明一个集合时需要指定一种类型，如果没有泛型，在集合中添加不同类型的元素后遍历这个集合是非常危险的，如果我们遍历集合时把数据都当作integer来处理，但集合中又有string类型的元素，那这时候程序会崩溃。所以说用泛型是为了程序的安全<br>泛型还可以类，接口和方法<br>泛型类提供了代码重用和类型安全性的好处，因为可以给各种数据类型重复使用，而无需为每种类型编写单独的类</p>
+<p><strong>String，StringBuilder，StringBuffer：</strong></p>
+<p><code>String</code> 是不可变类，一旦创建就不能被修改。由于不可变性，所以是线程安全的。string类被声明为final类型，意味着string类不能被继承，他内部定义了一个char数组，说明他是通过char数组来实现的</p>
+<p><code>StringBuilder</code> 是可变的。线程不安全的，通常在单线程下使用</p>
+<p><code>StringBuffer</code> 与 <code>StringBuilder</code> 类似，也是可变的。因为StringBuffer类里的方法都是被<code>synchronized</code> 关键字修饰，导致方法都是同步的，所以是线程安全的。通常在多线程下使用</p>
+<p><strong>&#x3D;&#x3D;和equals：</strong><br>对于基本数据类型来说，&#x3D;&#x3D;判断两边值是否相等<br>对于引用类型来说，&#x3D;&#x3D;判断两边对象地址是否相等，equals判断两边值是否相等</p>
+<p><strong>重写和重载：</strong><br>重写：子类重写定义了一个与父类方法名相同的方法，参数和返回类型必须和父类一样<br>重载：同一个类有两个以上的方法，他们的方法名相同但参数不同</p>
+<p><strong>public，protected，private，默认不写：</strong><br>1.public修饰可以在任意地方访问<br>2.protected修饰能被该类自身，同一个包中其他类访问，其他包该类的子类访问<br>3.默认修饰只能被同一包中的类访问<br>4.private修饰只能被当前类访问</p>
+<p><strong>final和static：</strong><br>final修饰类表示不可继承<br>修饰方法不可重写<br>修饰变量表示常量，不可修改<br>static修饰的方法和变量是全局共享的，可以直接用类名调用类中的任何方法和变量</p>
+<p><strong>基本类型和包装类型：</strong><br>1.包装类型值可以为null，基本类型不可以<br>2.包装类型可用于泛型，基本类型不可以<br>3.包装类型在栈中存放堆的引用，基本类型存放的是具体的值，所以基本数据类型比包装类型更加高效</p>
+<p><strong>java面向对象3大特性：</strong><br>1.封装：指一个类把自己内部细节进行隐藏，只暴露对外的接口，通过getter和setter方法对属性进行存取<br>2.继承：子类可以访问和调用父类的非私有变量和方法，子类可以重写父类的非私有方法<br>3.多态：多态就是同一个接口，使用不同的实例执行不同操作<br>运行时多态需要满足3个条件：继承，重写，父类引用指向子类<br>多态都是类中方法的多态，属性是没有多态性的</p>
+<p><strong>锁：</strong><br>Synchronized是关键字，而Lock是一个接口<br>Synchronized一般修饰方法和代码块，而lock需要显式创建lock对象，并调用lock（）和unlock（）来获取和释放锁<br>Synchronized自动释放锁，lock需要手动释放</p>
+<p><strong>volatile：</strong><br>修饰变量可以确保被其他线程访问，保证了变量的可见性</p>
+
+        </div>
+          
+        <div class="top-div">
+          
+        </div>
+          
+      </div>
+    </div>
+
+    
+  </div>
+
+
+
+
+
+
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/laimtao" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

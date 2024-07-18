@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
+
+<meta charset="utf-8" >
+
+<title>mq</title>
+<meta name="keywords" content="mq, Blog">
+<meta name="description" content="mq的优缺点：
+优点：
+
+解耦，降低系统间的依赖
+异步处理，不需要同步等待
+削峰填谷，将流量从高峰期引到低谷期进行处理
+
+缺点：
+
+增加了系统的复杂性
+系统的可用性降低，mq的宕机影响系统使用
+数据的一致性问题
+
+使用场景：做日志采集，秒杀">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="mq">
+<meta property="og:description" content="mq的优缺点：
+优点：
+
+解耦，降低系统间的依赖
+异步处理，不需要同步等待
+削峰填谷，将流量从高峰期引到低谷期进行处理
+
+缺点：
+
+增加了系统的复杂性
+系统的可用性降低，mq的宕机影响系统使用
+数据的一致性问题
+
+使用场景：做日志采集，秒杀">
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <meta name="generator" content="Hexo 7.2.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="http://example.com">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="http://example.com">
+        <h1 class="site-title">Blog</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">mq</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2024-07-18</span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <p><strong>mq的优缺点：</strong></p>
+<p>优点：</p>
+<ol>
+<li>解耦，降低系统间的依赖</li>
+<li>异步处理，不需要同步等待</li>
+<li>削峰填谷，将流量从高峰期引到低谷期进行处理</li>
+</ol>
+<p>缺点：</p>
+<ol>
+<li>增加了系统的复杂性</li>
+<li>系统的可用性降低，mq的宕机影响系统使用</li>
+<li>数据的一致性问题</li>
+</ol>
+<p>使用场景：做日志采集，秒杀活动</p>
+<p><strong>rabbitmq和kafka：</strong></p>
+<p>rabbitmq：使用erlang语言开发，支持多种语言，单机吞吐量万级</p>
+<p>kafka：高性能，高可用，生产环境有大规模的使用场景，单机容量有限，就是说单机的topic越多，响应时间会变长，单机吞吐百万级</p>
+<p><strong>kafka组成：</strong></p>
+<ol>
+<li>broker，broker是kafka集群中的一个节点，每个broker可以运行在一个独立的服务器上，Kafka集群是由多个broker组成</li>
+<li>topic，topic可以理解为一个队列，topic可以对消息进行分类，多个生产者可以向同一个topic发送消息，多个消费者可以从一个topic订阅消息</li>
+<li>partition，partition是topic的分区，每个topic可以分为一个或多个partition，每个partition是一个有序的队列，用来存储消息，分区可以在不同的broker进行复制，每个分区有多个副本，一个主分区和多个从分区，生产者发送消息和消费者消费消息的对象都是主分区，当主分区发生故障时，一个从分区会成为新的主分区，从而确保数据的可靠性和持久性。每个 Partition 内的消息是有序的，不同 Partition 之间的消息顺序不保证</li>
+<li>group，group是消费者组，组里面的每个消费者负责消费不同分区的消息，提高消费能力</li>
+</ol>
+<p><strong>kafka如何确保消息的可靠性：</strong></p>
+<ol>
+<li><p>对于生产者端的消息确认机制，主要有这几种消息确认机制，</p>
+<p>acks&#x3D;0，生产者发送消息后不会等待任何确认，直接认为消息发送成功，这种机制无法知道消息有没有发送成功</p>
+<p>acks&#x3D;1，生产者发送消息后会等待主分区确认消息接受成功，如果接收成功，生产者就会收到一个确认，这种机制如果主分区副本没来得及将消息复制到其他副本就发生了故障会会导致消息丢失</p>
+<p>acks&#x3D;all，只有当主分区副本成功接收到消息并把消息复制到其他副本后，生产者才会收到确认，一般用这种</p>
+</li>
+<li><p>消息持久化，kafka会将消息持久化到磁盘中，确保宕机时可以恢复数据</p>
+</li>
+<li><p>副本机制，kafka每个分区有多个副本，一个主分区和多个从分区，分区副本分布在不同的broker上。当一个broker故障时，其他broker里的副本仍然可以提供服务</p>
+</li>
+<li><p>消息确认机制，</p>
+</li>
+<li><p>对于消费者端的消息确认机制，默认自动提交偏移量改为手动提交偏移量，当消费者接受消息时会自动将偏移量向后移，如果消费者处理消息失败了，就无法重新获取消息进行处理，所有要在消费者消费消息后手动提交偏移量offset</p>
+</li>
+</ol>
+<p><strong>kafka如何保证消息不会被重复消费：</strong></p>
+<p>先说下什么情况下会出现重复消费，当消费端正在消费消息时，消费者服务器宕机了，这时已经自动提交偏移量了，会出现一部分消息消费，另一部分没有被消费，当消费者服务器重启后会从已提交的偏移量位置再次消费，导致之前已消费的消息再次消费，可以改为手动提交偏移量，在消息完全被处理后再提交偏移量</p>
+<p>结合业务：</p>
+<p>如果需要将数据写入<a target="_blank" rel="noopener" href="https://cloud.tencent.com/solution/database?from_column=20065&from=20065">数据库</a>，可以先根据主键查询一下，如果该数据已经存在，就不需要再插入一条新的数据了，而是直接进行更新操作</p>
+<p>如果需要将数据写入 <a target="_blank" rel="noopener" href="https://cloud.tencent.com/product/crs?from_column=20065&from=20065">Redis</a> 中，直接set就行了，因为redis set数据不会出现重复</p>
+<p>其他方法：</p>
+<p>每条消息都设置一个唯一标识，在消费者消费消息前，将消息的唯一标识保存到redis中，在消费者接收消息后，先检查redis中是否存在该消息的唯一标识符，如果存在则表示该消息已经被消费过了，如果不存在则表示没有被消费过，可以进行消费</p>
+<p><strong>kafka如何确保消息的顺序性：</strong></p>
+<ol>
+<li>全局消费顺序，kafka的单个分区是有序的，那我们就可以设置一个topic只创建一个分区</li>
+<li>局部消费顺序，多个生产者在发送消息时指定发送同一个分区</li>
+</ol>
+<p><strong>zookeeper与kafka的关系：</strong></p>
+<ol>
+<li>配置管理，kafka集群的配置消息，如主题，分区，副本可以通过zk进行管理</li>
+<li>选举机制，当主分区故障时，zk负责触发新的主分区的选举过程</li>
+<li>故障检测，zk可以检测到kafka集群中的节点故障，并及时通知其他节点进行相应的处理</li>
+</ol>
+
+        </div>
+          
+        <div class="top-div">
+          
+        </div>
+          
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/2024/07/18/liunx/">
+          <h3 class="post-title">
+            下一篇：liunx
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+
+
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/laimtao" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+

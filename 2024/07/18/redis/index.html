@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
+
+<meta charset="utf-8" >
+
+<title>redis</title>
+<meta name="keywords" content="redis, Blog">
+<meta name="description" content="5种数据类型：
+
+string，是字符串或二进制数据，可以存放图片或者视频等信息
+hash，是键值对的映射表，适合存对象，比如用户信息
+list，是链表结构，可以用作消息队列
+set，是字符串的无序集合，不能出现重复的数据，可以存唯一性数据">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="redis">
+<meta property="og:description" content="5种数据类型：
+
+string，是字符串或二进制数据，可以存放图片或者视频等信息
+hash，是键值对的映射表，适合存对象，比如用户信息
+list，是链表结构，可以用作消息队列
+set，是字符串的无序集合，不能出现重复的数据，可以存唯一性数据">
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <meta name="generator" content="Hexo 7.2.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="http://example.com">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="http://example.com">
+        <h1 class="site-title">Blog</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">redis</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2024-07-18</span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <p><strong>5种数据类型：</strong></p>
+<ol>
+<li>string，是字符串或二进制数据，可以存放图片或者视频等信息</li>
+<li>hash，是键值对的映射表，适合存对象，比如用户信息</li>
+<li>list，是链表结构，可以用作消息队列</li>
+<li>set，是字符串的无序集合，不能出现重复的数据，可以存唯一性数据，比如说点赞的用户</li>
+<li>sorted set，类似于集合，但每个成员都关联了一个分数，可以根据分数进行排序，适合实现排行榜功能</li>
+</ol>
+<p><strong>如何确保redis和数据库的一致性：</strong></p>
+<p>因为redis缓存和数据库是分开的，不可能同时更新数据库和缓存的数据，可能出现数据库更新失败，也可能出现缓存更新失败，这个时候就会出现数据库和缓存数据的不一致，可以有这几种方法确保一致性</p>
+<ol>
+<li>先更新数据库，再更新缓存，这种方法的不足是可能缓存更新失败，导致读到老数据</li>
+<li>先删除缓存，再更新数据库，在高并发情况下可能会将数据库老数据更新到缓存</li>
+<li>先更新数据库，再删除缓存，存在删除缓存失败的可能</li>
+<li>延时双删，先删除缓存，再更新数据库，休眠1s，再次删除缓存，这样做可以确保删除并发造成的缓存脏数据</li>
+<li>终极方案，将访问操作串行化，先删除缓存，再将更新数据库的操作放入有序队列，从缓存查不到数据之后的所有操作都加入队列中。这种方式会导致请求积压，大量超时</li>
+</ol>
+<p><strong>redis持久化机制：</strong></p>
+<p>主要用来确保redis在崩溃或重启后的数据恢复</p>
+<ol>
+<li><p>RDB持久化</p>
+<p>周期性的将redis中的数据快照写入磁盘.rdb文件中来实现，这个过程是异步的，redis在指定的时间间隔内执行。可以通过发送 <code>SAVE</code> 或 <code>BGSAVE</code> 命令来手动触发 RDB 持久化过程</p>
+<p><strong>RDB</strong> 更适合用于备份，因为生成的文件比 AOF 更小，恢复速度也更快</p>
+</li>
+<li><p>AOF持久化</p>
+<p>将所有的写操作命令写入一个aof文件，每个命令追加到文件的末尾</p>
+<p>数据恢复时会根据 AOF 文件的内容重新执行写操作</p>
+<p><strong>AOF</strong> 更适合用于数据恢复</p>
+</li>
+</ol>
+<p><strong>实现分布式锁：</strong></p>
+<p>当一个线程查询某条数据的时候，比如查id为1的数据时，先查询redis看有没有key为1的value，如果没有就将1作为key，value值随便取，设置一个过期时间存入redis中。这时另一个线程如果也要查id为1的数据，就会去redis中取key为1的值，如果能取到就表示被加锁了，线程被阻塞。只有再过期时间到了之后或者拿到锁的线程任务执行完成之后删除redis存的数据其他线程才能继续执行任务</p>
+<p><strong>redis为啥不用多线程：</strong></p>
+<ol>
+<li>单线程编程容易并且更容易维护；</li>
+<li>Redis 的性能瓶颈不在 CPU ，主要在内存和网络；</li>
+<li>多线程就会存在死锁、线程上下文切换等问题，甚至会影响性能。</li>
+</ol>
+<p><strong>缓存击穿：</strong></p>
+<p>某个热点key失效，这时大量请求对其进行访问，导致服务器压力剧增。</p>
+<p>如何解决：</p>
+<p>对热点key设置永不过期</p>
+<p>使用互斥锁，如果缓存失效，只有拿到锁才可以访问数据库</p>
+<p><strong>缓存穿透：</strong></p>
+<p>用户请求的数据在缓存中不存在，同时数据库中也不存在，导致每次都要去数据库查询一遍</p>
+<p>如何解决：</p>
+<p>把无效的key存进redis中，设置值为空，但如果每次都是随机的便没有意使用义</p>
+<p>在缓存前加布隆过滤器，每次要访问缓存先访问布隆过滤器，作用是某个key不存在那就一定不存在，如果他说某个key存在，那很大可能是存在</p>
+<p><strong>缓存雪崩：</strong></p>
+<p>某一时刻出现大规模缓存失效，导致大量请求直接打到数据库上面，使数据库宕机</p>
+<p>如何解决：</p>
+<p>在原有失效时间加一个随机值，避免相同过期时间导致雪崩</p>
+<p>限流，避免同时处理大量请求</p>
+
+        </div>
+          
+        <div class="top-div">
+          
+        </div>
+          
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/2024/07/18/java%E5%9F%BA%E7%A1%80/">
+          <h3 class="post-title">
+            下一篇：java基础
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+
+
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/laimtao" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+
