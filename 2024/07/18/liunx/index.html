@@ -16,12 +16,7 @@ cd:改变目录
 cd..:返回上一级
 pwd:显示当前所在目录路径
 ls:显示当前目录所有文件
-touch:新建一个文件
-rm:删除一个文件
-mkdir:删除一个文件夹
-mv:移动文件
-clear:清屏
-exit:退出">
+chmod:使用 “+” 设置权限，使用 “-“ 用于取消，“&#x3D;”用于给定一个权限。其中r是读权限，w是写权限，">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -31,12 +26,7 @@ cd:改变目录
 cd..:返回上一级
 pwd:显示当前所在目录路径
 ls:显示当前目录所有文件
-touch:新建一个文件
-rm:删除一个文件
-mkdir:删除一个文件夹
-mv:移动文件
-clear:清屏
-exit:退出">
+chmod:使用 “+” 设置权限，使用 “-“ 用于取消，“&#x3D;”用于给定一个权限。其中r是读权限，w是写权限，">
 
 <link rel="shortcut icon" href="/favicon.ico">
 <link rel="stylesheet" href="/style/main.css">
@@ -108,13 +98,13 @@ exit:退出">
 <p>cd..:返回上一级</p>
 <p>pwd:显示当前所在目录路径</p>
 <p>ls:显示当前目录所有文件</p>
-<p>touch:新建一个文件</p>
+<p>chmod:使用 “+” 设置权限，使用 “-“ 用于取消，“&#x3D;”用于给定一个权限。其中r是读权限，w是写权限，x是执行权限。ugo是代表权限的范围，u是文件或目录的所有者，g是用户组，o是其他用户，a是所有用户</p>
 <p>rm:删除一个文件</p>
 <p>mkdir:删除一个文件夹</p>
 <p>mv:移动文件</p>
-<p>clear:清屏</p>
-<p>exit:退出</p>
+<p>grep+关键词+文件路径:根据关键词查询文件中的内容</p>
 <p>top:查看cpu和内存</p>
+<p>kill:终止某个进程</p>
 <p><strong>git：</strong></p>
 <p>git init:初始化仓库</p>
 <p>git add:添加文件到暂存区</p>
@@ -122,13 +112,38 @@ exit:退出">
 <p>git pull:下载远程代码并合并</p>
 <p>git push:上传远程代码并合并</p>
 <p>git checkout:切换分支</p>
-<p>git merge:合并分支</p>
+<p>git merge:合并分支后git提交日志会显示每个分支的提交记录，显得比较乱</p>
+<p>git rebase:合并分支后会将每个分支的提交记录合并，这时git提交记录会呈一条直线，比较干净</p>
 <p>git clone:将远程服务器上的仓库完全镜像一份到本地</p>
 <p><strong>git工作区域：</strong></p>
 <p>workspace：工作区，平时存放代码的地方</p>
 <p>index&#x2F;stage：暂存去，临时存放改动</p>
 <p>repository：本地仓库，存放数据的位置，存放着提交到所有版本的数据，其中head指向最新版本</p>
 <p>remote：远程仓库，托管代码的服务器</p>
+<p><strong>docker命令：</strong></p>
+<p>docker ps  查看正在运行的容器</p>
+<p>docker ps -a  查看所有已经创建的容器</p>
+<p>docker images  列出镜像列表</p>
+<p>docker start  启动容器</p>
+<p>docker run  创建一个新的容器并运行一个命令</p>
+<p>docker restart  重启容器</p>
+<p>docker exec  在运行的容器中执行命令</p>
+<p>docker stop  停止容器</p>
+<p>docker rm  删除容器</p>
+<p>docker rmi  删除镜像</p>
+<p><strong>nginx作用：</strong></p>
+<p>1.反向代理服务器，将请求转发到后端服务器</p>
+<p>2.负载均衡，通过负载均衡算法，比如说轮询，加权轮询，最小连接数等来转发请求</p>
+<p><strong>nginx部署前后端分离项目：</strong></p>
+<p>将前端项目打包，放到liunx服务器一个指定的目录下，在nginx配置文件中的location下面中的root改成存放前端项目的地址。将后端项目打成jar包，使用java -jar在服务器上运行，修改nginx配置文件将代理地址改成后端项目运行的服务器ip和端口号</p>
+<p><strong>jekins部署后端项目流程：</strong></p>
+<ol>
+<li>下载并安装jdk，maven，git，jenkins</li>
+<li>在jenkins客户端配置好jdk，maven和git</li>
+<li>下载自动化部署相关插件</li>
+<li>新建一个item打包项目。需添加git仓库地址和分支</li>
+<li>发布。配置好jar包的地址和需要部署服务器的地址还有执行命令或脚本</li>
+</ol>
 
         </div>
           

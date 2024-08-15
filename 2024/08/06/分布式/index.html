@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+
+    
+<script>!function(){var e=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,t=localStorage.getItem("use-color-scheme")||"auto";("dark"===t||e&&"light"!==t)&&document.documentElement.classList.toggle("dark",!0)}()</script>
+    
+
+<meta charset="utf-8" >
+
+<title>分布式</title>
+<meta name="keywords" content="分布式, Blog">
+<meta name="description" content="CAP原则指的是在一个分布式系统中，一致性（Consistency）、可用性（Availability）、分区容错性（Partition tolerance）。CAP 原则指的是，这三个要素最多只能同时实现两点，不可能三者兼顾。
+
+一致性（">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta property="og:title" content="分布式">
+<meta property="og:description" content="CAP原则指的是在一个分布式系统中，一致性（Consistency）、可用性（Availability）、分区容错性（Partition tolerance）。CAP 原则指的是，这三个要素最多只能同时实现两点，不可能三者兼顾。
+
+一致性（">
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link rel="stylesheet" href="/style/main.css">
+
+  <meta name="generator" content="Hexo 7.2.0"></head>
+  <body>
+    <div id="app" class="main">
+
+<div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="http://example.com">
+        <img class="avatar" src="/images/avatar.png" alt="logo" width="32px" height="32px">
+      </a>
+      <a href="http://example.com">
+        <h1 class="site-title">Blog</h1>
+      </a>
+    </div>
+    <div class="right">
+        <i class="icon menu-switch icon-menu-outline" ></i>
+    </div>
+  </div>
+</div>
+
+<div class="menu-container" style="height: 0;opacity: 0;">
+<nav class="menu-list">
+  
+    
+      <a href="/" class="menu purple-link">
+        首页
+      </a>
+    
+  
+    
+      <a href="/tags" class="menu purple-link">
+        标签
+      </a>
+    
+  
+    
+      <a href="/archives" class="menu purple-link">
+        归档
+      </a>
+    
+  
+    
+      <a href="/about" class="menu purple-link">
+        关于
+      </a>
+    
+  
+</nav>
+</div>
+
+
+
+  <div class="content-container">
+    <div class="post-detail">
+      
+      <h2 class="post-title">分布式</h2>
+      <div class="post-info post-detail-info">
+        <span><i class="icon icon-calendar-outline"></i> 2024-08-06</span>
+        
+      </div>
+      <div class="post-content-wrapper">
+        <div class="post-content">
+          <p><strong>CAP原则</strong><br>指的是在一个分布式系统中，<a href="https://link.zhihu.com/?target=https://baike.baidu.com/item/%E4%B8%80%E8%87%B4%E6%80%A7/9840083?fromModule=lemma_inlink">一致性</a>（Consistency）、<a href="https://link.zhihu.com/?target=https://baike.baidu.com/item/%E5%8F%AF%E7%94%A8%E6%80%A7/109628?fromModule=lemma_inlink">可用性</a>（Availability）、<a href="https://link.zhihu.com/?target=https://baike.baidu.com/item/%E5%88%86%E5%8C%BA%E5%AE%B9%E9%94%99%E6%80%A7/23734073?fromModule=lemma_inlink">分区容错性</a>（Partition tolerance）。CAP 原则指的是，这三个<a href="https://link.zhihu.com/?target=https://baike.baidu.com/item/%E8%A6%81%E7%B4%A0/5261200?fromModule=lemma_inlink">要素</a>最多只能同时实现两点，不可能三者兼顾。</p>
+<ul>
+<li>一致性（C）：所有节点上的数据在同一时刻是一致的</li>
+<li>可用性（A）：保证每个请求都有响应，即使系统中的某些节点发生故障</li>
+<li>分区容忍性（P）：系统在遇到网络分区的情况下仍然能够继续运行</li>
+</ul>
+<p><strong>分布式事务产生背景</strong></p>
+<p>在传统的单体项目中，多个不同的业务逻辑使用的都是同一个数据源，使用的都是同一个事务管理器，所以不会存在事务问题。</p>
+<p>在分布式或者微服务架构中，每个服务都有自己的数据源，使用不同事务管理器，如果A服务去调用B服务，B服务执行失败了，A服务的事务和B服务的事务都会回滚，这时候是不存在事务问题的。但是如果A服务在B服务执行成功之后出现异常，A服务的事务会回滚，但是B服务的事务不会回滚，此时就存在分布式事务问题</p>
+<p> <strong>spring cloud 的核心组件有哪些？</strong></p>
+<ul>
+<li>Eureka：服务发现和注册中心，用于管理服务实例的注册与发现</li>
+<li>Feign：实现远程调用，使服务之间可以通信</li>
+<li>Ribbon：载均衡器，用于在服务之间进行负载均衡</li>
+<li>Hystrix：容错管理工具，实现了断路器模式，用于处理延迟和故障</li>
+<li>Zuul：服务网关，用来做路由和负载均衡</li>
+<li>Config：分布式配置管理，集中式管理应用的配置</li>
+</ul>
+<p><strong>springcloud如何实现服务的注册?</strong></p>
+<ul>
+<li>服务端（Eureka Server）：搭建一个 Eureka 服务器，服务提供者将自己的服务信息注册到这个服务器上。</li>
+<li>客户端（Eureka Client）：服务提供者在启动时向 Eureka 服务器注册自己的信息（例如服务名、IP 地址、端口号），并周期性地向 Eureka 服务器发送心跳来更新自身的状态。</li>
+<li>消费者（Eureka Client）：服务消费者通过向 Eureka 服务器发送请求来获取可用服务列表，从而实现服务的发现。</li>
+</ul>
+<p><strong>微服务和分布式的区别</strong></p>
+<p>分布式：将一个项目拆分成多个模块，并将这些模块分开部署，就是分布式</p>
+<p>拆分方式可以分为水平拆分和垂直拆分</p>
+<p>水平拆分：根据分层思想进行拆分，比如可以将controller，service，dao三层架构进行拆分，将不同层部署在不同的服务器上</p>
+<p>垂直拆分：根据业务进行拆分，比如在项目中分成订单模块，用户模块，鉴权模块，拆分后的模块可以作为单独的项目使用</p>
+<p>微服务：微服务可以理解为在垂直拆分的基础上进一步拆分</p>
+<p><strong>网关的作用：</strong></p>
+<ul>
+<li>路由和负载均衡：一切请求都必须先经过gateway，但网关不处理业务，而是根据某种规则，把请求转发到某个微服务，这个过程叫做路由。当然路由的目标服务有多个时，还需要做负载均衡</li>
+<li>权限控制：网关作为微服务入口，校验用户是是否有请求资格，如果没有则进行拦截</li>
+<li>限流：当请求流量过高时，在网关中配置下流的微服务能够接受的速度来放行请求，避免服务压力过大</li>
+</ul>
+<p><strong>负载均衡方式</strong></p>
+<p>1.轮询：将请求依次分配给每个服务实例，直到所有实例都被轮询过一遍，然后重新开始。适用于每个服务实例的处理能力相近的场景</p>
+<p>2.权重轮询：不同的服务实例可能具有不同的处理能力或资源配置，通过给每个实例分配一个权重值，按照权重比例来决定分配请求的顺序</p>
+<p>3.随机：随机地分配给可用的服务实例</p>
+<p>4.最小连接数：请求会优先分配给当前连接数最少的服务实例，用于确保当前负载较轻的服务实例能够更多地处理请求</p>
+<p><strong>Hystrix 作用</strong></p>
+<p>1.熔断器：当远程服务调用失败率超过设定阈值时，Hystrix 会自动开启熔断器，停止向远程服务发送请求，并返回预设的失败响应</p>
+<p>2.服务降级：当远程服务不可用时，Hystrix 提供了降级策略，可以返回备选的响应数据或者默认值，确保系统的基本功能可用性</p>
+<p>3.超时机制：当服务调用超过设定的时间仍未返回时，Hystrix 将快速失败，避免线程或资源的长时间占用</p>
+<p>4.自动恢复：当依赖服务恢复正常时，Hystrix 会自动关闭熔断器，重新恢复对该服务的正常请求处理</p>
+<p><strong>jwt：</strong></p>
+<p>jwt全名json web token，是一种特殊的token，格式是json，使用base64进行编码</p>
+<p>jwt有3部分组成：</p>
+<ol>
+<li>头部，头部包含声明类型和加密算符</li>
+<li>负载，负载包括我们的用户信息和jwt的过期时间</li>
+<li>签名，通过头部指定的算法，对头部和负载进行加密</li>
+</ol>
+<p>jwt+redis，jwt设置了过期时间后只有到期了才能失效。如果我们想要强制用户在过期时间前下线是做不到的，这时可以引入redis来实现强制下线。后端生成jwt之后除了要返回给前端，还要保存在redis中。</p>
+<p>用户每次请求都带上jwt，我们在后端接收后会验证有效性，如果jwt有效，就从用户信息从redis中取出，返回给前端。这样做提高了安全性</p>
+
+        </div>
+          
+        <div class="top-div">
+          
+        </div>
+          
+      </div>
+    </div>
+
+    
+      <div class="next-post">
+        <a class="purple-link" href="/2024/07/18/mq/">
+          <h3 class="post-title">
+            下一篇：mq
+          </h3>
+        </a>
+      </div>
+    
+  </div>
+
+
+
+
+
+
+
+
+
+
+<footer>
+<div class="site-footer">
+  <div class="social-container">
+    
+      
+        <a aria-label="跳转至github" href="https://github.com/laimtao" target="_blank">
+          <i class="icon icon-github"></i>
+        </a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  
+    Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> <a href="https://github.com/f-dong/hexo-theme-minimalism" target="_blank">Theme</a>
+  
+  
+  
+  
+  
+  
+</div>
+</footer>
+
+
+      </div>
+    </div>
+    
+<script id="hexo-configurations"> window.theme_config = {"image":{"lazyload_enable":true,"photo_zoom":"simple-lightbox"}}; window.is_post = true; </script>
+
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+  </body>
+</html>
+
