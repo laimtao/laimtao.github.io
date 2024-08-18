@@ -144,6 +144,14 @@ chmod:使用 “+” 设置权限，使用 “-“ 用于取消，“&#x3D;”�
 <li>新建一个item打包项目。需添加git仓库地址和分支</li>
 <li>发布。配置好jar包的地址和需要部署服务器的地址还有执行命令或脚本</li>
 </ol>
+<p><strong>docker部署springcloud项目：</strong></p>
+<ol>
+<li>创建Dockerfile文件，在项目根目录下创建一个 <code>Dockerfile</code> 文件，定义如何构建 Docker 镜像</li>
+<li>将项目打成jar包</li>
+<li>使用 <code>Dockerfile</code> 构建 Docker 镜像</li>
+<li>运行docker容器</li>
+<li>如果Spring Cloud 项目需要与其他服务交互（如 Eureka、Config Server），可以在 <code>docker-compose.yml</code> 中定义多个服务的配置，简化管理</li>
+</ol>
 
         </div>
           

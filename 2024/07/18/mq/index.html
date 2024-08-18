@@ -128,10 +128,15 @@
 <p>kafka：高性能，高可用，生产环境有大规模的使用场景，单机容量有限，就是说单机的topic越多，响应时间会变长，单机吞吐百万级</p>
 <p><strong>kafka组成：</strong></p>
 <ol>
-<li>broker，broker是kafka集群中的一个节点，每个broker可以运行在一个独立的服务器上，Kafka集群是由多个broker组成</li>
-<li>topic，topic可以理解为一个队列，topic可以对消息进行分类，多个生产者可以向同一个topic发送消息，多个消费者可以从一个topic订阅消息</li>
-<li>partition，partition是topic的分区，每个topic可以分为一个或多个partition，每个partition是一个有序的队列，用来存储消息，分区可以在不同的broker进行复制，每个分区有多个副本，一个主分区和多个从分区，生产者发送消息和消费者消费消息的对象都是主分区，当主分区发生故障时，一个从分区会成为新的主分区，从而确保数据的可靠性和持久性。每个 Partition 内的消息是有序的，不同 Partition 之间的消息顺序不保证</li>
-<li>group，group是消费者组，组里面的每个消费者负责消费不同分区的消息，提高消费能力</li>
+<li><p>broker，broker是kafka集群中的一个节点，每个broker可以运行在一个独立的服务器上，Kafka集群是由多个broker组成</p>
+</li>
+<li><p>topic，topic可以理解为一个队列，topic可以对消息进行分类，多个生产者可以向同一个topic发送消息，多个消费者可以从一个topic订阅消息</p>
+</li>
+<li><p>partition，partition是topic的分区，每个topic可以分为一个或多个partition，每个partition是一个有序的队列，用来存储消息，分区可以在不同的broker进行复制，每个分区有多个副本，一个主分区和多个从分区，生产者发送消息和消费者消费消息的对象都是主分区</p>
+<p>当主分区发生故障时，一个从分区会成为新的主分区，从而确保数据的可靠性和持久性。每个 Partition 内的消息是有序的，不同 Partition 之间的消息顺序不保证</p>
+</li>
+<li><p>group，group是消费者组，组里面的每个消费者负责消费不同分区的消息，提高消费能力</p>
+</li>
 </ol>
 <p><strong>kafka如何确保消息的可靠性：</strong></p>
 <ol>
@@ -143,8 +148,6 @@
 <li><p>消息持久化，kafka会将消息持久化到磁盘中，确保宕机时可以恢复数据</p>
 </li>
 <li><p>副本机制，kafka每个分区有多个副本，一个主分区和多个从分区，分区副本分布在不同的broker上。当一个broker故障时，其他broker里的副本仍然可以提供服务</p>
-</li>
-<li><p>消息确认机制，</p>
 </li>
 <li><p>对于消费者端的消息确认机制，默认自动提交偏移量改为手动提交偏移量，当消费者接受消息时会自动将偏移量向后移，如果消费者处理消息失败了，就无法重新获取消息进行处理，所有要在消费者消费消息后手动提交偏移量offset</p>
 </li>

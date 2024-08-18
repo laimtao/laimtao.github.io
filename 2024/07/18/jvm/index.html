@@ -84,12 +84,12 @@
       <div class="post-content-wrapper">
         <div class="post-content">
           <h3 id="JVM的内存结构"><a href="#JVM的内存结构" class="headerlink" title="JVM的内存结构"></a>JVM的内存结构</h3><p><strong>一.程序计数器：</strong><br>程序计数器是一块内存空间，用来存放线程下一个指令所在位置。<br>在单核cpu中，每一时刻只会有一个线程执行指令，这意味着cpu会频繁切换线程，在线程切换后需要恢复到原来的正确位置，这就需要每个线程都有独立的程序计数器<br><strong>二.虚拟机栈：</strong><br>每个方法在执行的同时会创建一个栈帧来存放方法参数和方法内部局部变量，操作数栈，方法出口等信息，每一个方法从调用到返回的过程就对应一个栈帧在虚拟机栈从入栈到出栈的过程<br><strong>三.本地方法栈：</strong><br>本地方法栈和虚拟机栈类似，区别是虚拟机栈为执行java方法服务，本地方法栈为执行native方法服务，native方法是java调用非java代码的接口<br><strong>四.堆：</strong><br>堆内存是被所有线程共享的一块内存，java创建的对象几乎都存放在堆内存中，堆内存又分为新生代和老年代，新生代是用于存放新创建的对象的区域，老年代用于存放长期存活的对象。垃圾回收机制会对堆内存进行垃圾回收。</p>
-<p>新生代通常采用标记复制算法，垃圾回收器采用Serial收集器、Parallel收集器。老年代采用标记-清除或标记-整理算法，垃圾回收器采用Serial Old收集器、Parallel Old收集器、CMS收集器<br><strong>五.方法区：</strong><br>方法区是被所有线程共享的一块内存，用来存放虚拟机加载的类信息，常量，静态变量，编译器编译后的代码等<br><strong>六.运行时常量池：</strong><br>是方法区的一部分，存放编译器生成的各种字面量和符号引用</p>
-<h3 id="类加载机制："><a href="#类加载机制：" class="headerlink" title="类加载机制："></a>类加载机制：</h3><p><strong>加载</strong>：查找并加载类的二进制数据。类加载器根据类的全限定名来读取对应的.class文件，并将其转换成方法区的运行时数据结构</p>
-<p><strong>验证</strong>：确保被加载的类的正确性。目的是为了确保Class文件的字节流中包含的信息符合当前虚拟机的要求。</p>
-<p><strong>准备</strong>：为类的静态变量分配内存，并将其初始化为默认值</p>
+<p>新生代通常采用标记复制算法，垃圾回收器采用Serial收集器、Parallel收集器。老年代采用标记-清除或标记-整理算法，垃圾回收器采用Serial Old收集器、Parallel Old收集器、CMS收集器<br><strong>五.方法区：</strong><br>方法区是被所有线程共享的一块内存，用来存放虚拟机加载的类信息，常量，静态变量，编译器编译后的代码等</p>
+<h3 id="类加载机制："><a href="#类加载机制：" class="headerlink" title="类加载机制："></a>类加载机制：</h3><p><strong>加载</strong>：将类的字节码存到内存中，创建一个java.lang.Class对象</p>
+<p><strong>验证</strong>：确保加载的类字节码符合JVM规范</p>
+<p><strong>准备</strong>：为类的静态变量分配内存，并设置默认值</p>
 <p><strong>解析</strong>：把类中的符号引用转换为直接引用</p>
-<p><strong>初始化</strong>：对类的静态变量，静态代码块执行初始化操作</p>
+<p><strong>初始化</strong>：对类的静态变量和静态代码块进行赋值操作</p>
 <h3 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h3><p>双亲委派机制是类加载器的一种工作机制，是jvm用来加载类的一种层次结构。</p>
 <p>他可以划分为这几个层次：</p>
 <p>1.启动类加载器（Bootstrap ClassLoader）：负责加载java的核心类</p>
