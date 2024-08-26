@@ -11,12 +11,16 @@
 
 <title>jvm</title>
 <meta name="keywords" content="jvm, Blog">
-<meta name="description" content="JVM的内存结构一.程序计数器：程序计数器是一块内存空间，用来存放线程下一个指令所在位置。在单核cpu中，每一时刻只会有一个线程执行指令，这意味着cpu会频繁切换线程，在线程切换后需要恢复到原来的正确位置，这就需要每个线程都有独立的程序计数">
+<meta name="description" content="JVM的内存结构
+
+程序计数器：程序计数器是一块内存空间，用来存放线程下一个指令所在位置。在单核cpu中，每一时刻只会有一个线程执行指令，这意味着cpu会频繁切换线程，在线程切换后需要恢复到原来的正确位置，这就需要每个线程都有独立的程序计数">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta property="og:title" content="jvm">
-<meta property="og:description" content="JVM的内存结构一.程序计数器：程序计数器是一块内存空间，用来存放线程下一个指令所在位置。在单核cpu中，每一时刻只会有一个线程执行指令，这意味着cpu会频繁切换线程，在线程切换后需要恢复到原来的正确位置，这就需要每个线程都有独立的程序计数">
+<meta property="og:description" content="JVM的内存结构
+
+程序计数器：程序计数器是一块内存空间，用来存放线程下一个指令所在位置。在单核cpu中，每一时刻只会有一个线程执行指令，这意味着cpu会频繁切换线程，在线程切换后需要恢复到原来的正确位置，这就需要每个线程都有独立的程序计数">
 
 <link rel="shortcut icon" href="/favicon.ico">
 <link rel="stylesheet" href="/style/main.css">
@@ -83,14 +87,32 @@
       </div>
       <div class="post-content-wrapper">
         <div class="post-content">
-          <h3 id="JVM的内存结构"><a href="#JVM的内存结构" class="headerlink" title="JVM的内存结构"></a>JVM的内存结构</h3><p><strong>一.程序计数器：</strong><br>程序计数器是一块内存空间，用来存放线程下一个指令所在位置。<br>在单核cpu中，每一时刻只会有一个线程执行指令，这意味着cpu会频繁切换线程，在线程切换后需要恢复到原来的正确位置，这就需要每个线程都有独立的程序计数器<br><strong>二.虚拟机栈：</strong><br>每个方法在执行的同时会创建一个栈帧来存放方法参数和方法内部局部变量，操作数栈，方法出口等信息，每一个方法从调用到返回的过程就对应一个栈帧在虚拟机栈从入栈到出栈的过程<br><strong>三.本地方法栈：</strong><br>本地方法栈和虚拟机栈类似，区别是虚拟机栈为执行java方法服务，本地方法栈为执行native方法服务，native方法是java调用非java代码的接口<br><strong>四.堆：</strong><br>堆内存是被所有线程共享的一块内存，java创建的对象几乎都存放在堆内存中，堆内存又分为新生代和老年代，新生代是用于存放新创建的对象的区域，老年代用于存放长期存活的对象。垃圾回收机制会对堆内存进行垃圾回收。</p>
-<p>新生代通常采用标记复制算法，垃圾回收器采用Serial收集器、Parallel收集器。老年代采用标记-清除或标记-整理算法，垃圾回收器采用Serial Old收集器、Parallel Old收集器、CMS收集器<br><strong>五.方法区：</strong><br>方法区是被所有线程共享的一块内存，用来存放虚拟机加载的类信息，常量，静态变量，编译器编译后的代码等</p>
-<h3 id="类加载机制："><a href="#类加载机制：" class="headerlink" title="类加载机制："></a>类加载机制：</h3><p><strong>加载</strong>：将类的字节码存到内存中，创建一个java.lang.Class对象</p>
-<p><strong>验证</strong>：确保加载的类字节码符合JVM规范</p>
-<p><strong>准备</strong>：为类的静态变量分配内存，并设置默认值</p>
-<p><strong>解析</strong>：把类中的符号引用转换为直接引用</p>
-<p><strong>初始化</strong>：对类的静态变量和静态代码块进行赋值操作</p>
-<h3 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h3><p>双亲委派机制是类加载器的一种工作机制，是jvm用来加载类的一种层次结构。</p>
+          <p><strong>JVM的内存结构</strong></p>
+<ol>
+<li>程序计数器：<br>程序计数器是一块内存空间，用来存放线程下一个指令所在位置。<br>在单核cpu中，每一时刻只会有一个线程执行指令，这意味着cpu会频繁切换线程，在线程切换后需要恢复到原来的正确位置，这就需要每个线程都有独立的程序计数器</li>
+<li>虚拟机栈：<br>每个方法在执行的同时会创建一个栈帧来存放方法参数和方法内部局部变量，操作数栈，方法出口等信息，每一个方法从调用到返回的过程就对应一个栈帧在虚拟机栈从入栈到出栈的过程</li>
+<li>本地方法栈：<br>本地方法栈和虚拟机栈类似，区别是虚拟机栈为执行java方法服务，本地方法栈为执行native方法服务，native方法是java调用非java代码的接口</li>
+<li>堆：<br>堆内存是被所有线程共享的一块内存，java创建的对象几乎都存放在堆内存中，堆内存又分为新生代和老年代，新生代是用于存放新创建的对象的区域，老年代用于存放长期存活的对象。垃圾回收机制会对堆内存进行垃圾回收。新生代通常采用标记复制算法，垃圾回收器采用Serial收集器、Parallel收集器。老年代采用标记-清除或标记-整理算法，垃圾回收器采用Serial Old收集器、Parallel Old收集器、CMS收集器</li>
+<li>方法区：<br>方法区是被所有线程共享的一块内存，用来存放虚拟机加载的类信息，常量，静态变量，编译器编译后的代码等</li>
+</ol>
+<p><strong>编译期和运行期：</strong></p>
+<ol>
+<li>编译期：也叫前期，即源文件（java代码）由编译器编译成字节码，字节码存在.class文件</li>
+<li>运行期：也叫后期，即字节码由jvm解释运行。内存分配是在运行期</li>
+</ol>
+<p>在java中编译阶段只是生成了字节码，没有生成计算机认识的机器码。java在运行阶段才开始解释字节码，然后生成对应的机器码；或者通过JIT技术，在运行阶段将字节码编译成对应的机器码缓存起来使用。所以，java称为一种动态编译</p>
+<ul>
+<li>静态对象创建：在编译期，编译器知道类的类型和构造方法，生成相应的字节码来创建对象。</li>
+<li>动态对象创建：使用反射等动态机制，在运行时确定类的类型和构造方法，创建对象。</li>
+</ul>
+<p><strong>类加载机制：</strong></p>
+<p>加载：将类的字节码存到内存中，创建一个java.lang.Class对象</p>
+<p>验证：确保加载的类字节码符合JVM规范</p>
+<p>准备：为类的静态变量分配内存，并设置默认值</p>
+<p>解析：把类中的符号引用转换为直接引用</p>
+<p>初始化：对类的静态变量和静态代码块进行赋值操作</p>
+<p><strong>双亲委派机制</strong></p>
+<p>双亲委派机制是类加载器的一种工作机制，是jvm用来加载类的一种层次结构。</p>
 <p>他可以划分为这几个层次：</p>
 <p>1.启动类加载器（Bootstrap ClassLoader）：负责加载java的核心类</p>
 <p>2.扩展类加载器（Extension ClassLoader）：负责加载JRE扩展目录（jre&#x2F;lib&#x2F;ext）中的类</p>
@@ -128,7 +150,7 @@
         </div>
           
         <div class="top-div">
-          <ol class="top-box"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#JVM%E7%9A%84%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84"><span class="top-box-text">JVM的内存结构</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%EF%BC%9A"><span class="top-box-text">类加载机制：</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6"><span class="top-box-text">双亲委派机制</span></a></li></ol></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%AD%BB%E4%BA%A1%E5%AF%B9%E8%B1%A1%E5%88%A4%E6%96%AD%E6%96%B9%E6%B3%95"><span class="top-box-text">死亡对象判断方法</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95"><span class="top-box-text">垃圾收集算法</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E6%A0%87%E8%AE%B0-%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95"><span class="top-box-text">标记-清除算法</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E6%A0%87%E8%AE%B0-%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95"><span class="top-box-text">标记-复制算法</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E6%A0%87%E8%AE%B0-%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95"><span class="top-box-text">标记-整理算法</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95"><span class="top-box-text">分代收集算法</span></a></li></ol>
+          <ol class="top-box"><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E6%AD%BB%E4%BA%A1%E5%AF%B9%E8%B1%A1%E5%88%A4%E6%96%AD%E6%96%B9%E6%B3%95"><span class="top-box-text">死亡对象判断方法</span></a></li><li class="top-box-item top-box-level-2"><a class="top-box-link" href="#%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95"><span class="top-box-text">垃圾收集算法</span></a><ol class="top-box-child"><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E6%A0%87%E8%AE%B0-%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95"><span class="top-box-text">标记-清除算法</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E6%A0%87%E8%AE%B0-%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95"><span class="top-box-text">标记-复制算法</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E6%A0%87%E8%AE%B0-%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95"><span class="top-box-text">标记-整理算法</span></a></li><li class="top-box-item top-box-level-3"><a class="top-box-link" href="#%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95"><span class="top-box-text">分代收集算法</span></a></li></ol></li></ol>
         </div>
           
       </div>

@@ -154,8 +154,6 @@
 </ul>
 <p><strong>索引失效：</strong></p>
 <ol>
-<li><p>未使用索引字段进行查询</p>
-</li>
 <li><p>索引字段使用了函数</p>
 </li>
 <li><p>使用了不等于（!&#x3D; 或 &lt;&gt;）操作符</p>
@@ -263,6 +261,12 @@
 <li><strong>InnoDB</strong> 支持行级锁，<strong>MyISAM</strong> 只支持表级锁</li>
 <li><strong>InnoDB</strong> 支持外键约束，<strong>MyISAM</strong> 不支持外键约束</li>
 </ol>
+<p><strong>UNION和 UNION ALL</strong></p>
+<p><code>UNION</code> 和 <code>UNION ALL</code> 都用于合并多个 SQL 查询的结果集，但有以下区别：</p>
+<ul>
+<li>**<code>UNION</code>**：去除重复的记录。只返回唯一的行。</li>
+<li>**<code>UNION ALL</code>**：包括所有记录，包括重复的行。</li>
+</ul>
 
         </div>
           
