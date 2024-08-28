@@ -85,6 +85,12 @@
         <div class="post-content">
           <h4 id="线程池原理："><a href="#线程池原理：" class="headerlink" title="线程池原理："></a>线程池原理：</h4><p>1.线程池在初始化时会创建一定的工作线程，数量为corepoolsize，这些工作线程处于空闲状态<br>2.当有任务分配给线程池时，线程池先判断当前线程数量是否小于corepoolsize，如果小于corepoolsize则用线程池中的一个线程来执行任务。<br>3.如果corepoolsize的线程都在执行任务则先判断阻塞队列是否已经满了，如果没有满则将线程放进阻塞队列，如果满了会创建一个新线程。<br>4.如果创建一个线程后使当前运行的线程数量大于maximumpoolsize，则交给拒绝策略来处理任务。</p>
 <h4 id="线程池核心配置参数："><a href="#线程池核心配置参数：" class="headerlink" title="线程池核心配置参数："></a>线程池核心配置参数：</h4><p>1.corepoolsize：线程池中的核心线程数<br>2.workqueue：阻塞队列，基于数组，链表的阻塞队列，按先进先出进行任务<br>3.maximumpoolsize：线程池允许的最大线程数<br>4.keepalivetime：线程空闲时的存活时间<br>5.timeunit：存活时间的单位<br>6.threadFactory：创建线程的工厂<br>7.hander：拒绝策略，线程达到maximumsize线程数后且workqueue已满的情况下，再向线程池提交任务后执行对应的拒绝策略<br><strong>4种拒绝策略：</strong><br>1.discardpolicy，线程会丢弃这个被拒绝的任务，不做任何其他处理<br>2.discardoldpolicy，线程池会丢弃阻塞队列最老的任务，然后尝试提交当前任务<br>3.callerRunspolicy，由提交任务的线程处理该任务<br>4.abortpolicy，丢弃任务并抛出异常（默认拒绝策略）</p>
+<p><strong>线程池创建方式：</strong></p>
+<ol>
+<li>使用executors工厂类创建，里面定义了几种不同类型的线程池</li>
+<li>使用ThreadPoolExecutor自定义线程池，可以自己根据参数配置线程池，更加灵活</li>
+<li>使用spring框架的ThreadPoolTaskExecutor来创建线程池</li>
+</ol>
 <p><strong>如何创建线程池：</strong></p>
 <p>通过spring提供的线程池ThreadPoolTaskExecutor来创建线程池，<br>首先需要我们传入我们自定义的参数，最大线程数，最小线程数这些，然后将封装好的executor对象通过@bean注入到spring容器中<br>我们要用的时候就从spring容器里取出executor对象并调用他的submit方法，submit方法里要传入要执行的任务，这个任务是实现了callable接口的，然后会返回一个future对象，这个future对象可以获取任务执行返回的值</p>
 <p><strong>如何确保多线程任务同时处理完成：</strong></p>
@@ -133,6 +139,9 @@
 <p><code>StringBuilder</code> 是可变的。线程不安全的，通常在单线程下使用</p>
 <p><code>StringBuffer</code> 与 <code>StringBuilder</code> 类似，也是可变的。因为StringBuffer类里的方法都是被<code>synchronized</code> 关键字修饰，导致方法都是同步的，所以是线程安全的。通常在多线程下使用</p>
 <p><strong>&#x3D;&#x3D;和equals：</strong><br>对于基本数据类型来说，&#x3D;&#x3D;判断两边值是否相等<br>对于引用类型来说，&#x3D;&#x3D;判断两边对象地址是否相等，equals判断两边值是否相等</p>
+<p><strong>equals和hashcode:</strong></p>
+<p>如果两个对象通过equals比较是相等的，那hashcode方法一定返回相同的值</p>
+<p>如果两个对象的hashcode返回相同的值，他们通过equals比较不一定相等</p>
 <p><strong>重写和重载：</strong><br>重写：子类重写定义了一个与父类方法名相同的方法，参数和返回类型必须和父类一样<br>重载：同一个类有两个以上的方法，他们的方法名相同但参数不同</p>
 <p><strong>public，protected，private，默认不写：</strong><br>1.public修饰可以在任意地方访问<br>2.protected修饰能被该类自身，同一个包中其他类访问，其他包该类的子类访问<br>3.默认修饰只能被同一包中的类访问<br>4.private修饰只能被当前类访问</p>
 <p><strong>final和static：</strong><br>final修饰类表示不可继承<br>修饰方法不可重写<br>修饰变量表示常量，不可修改<br>static修饰的方法和变量是全局共享的，可以直接用类名调用类中的任何方法和变量</p>
@@ -171,6 +180,23 @@
 </ul>
 <p><strong>restful风格接口</strong></p>
 <p>RESTful API 是一种通过 HTTP 协议进行通信的接口，它利用 HTTP 方法（如 GET、POST、PUT、DELETE）来操作资源。每一个uri代表一种资源，通常以 JSON 格式传输数据。</p>
+<p><strong>wait()和sleep()：</strong></p>
+<p>wait：</p>
+<ul>
+<li>wait()是Object类中的非静态方法</li>
+<li>当一个线程调用 <code>wait</code> 时，它会释放持有的锁，并进入等待状态，直到其他线程调用 <code>notify</code> 或 <code>notifyAll</code> 来唤醒它</li>
+<li>适用于同步方法和同步代码块</li>
+</ul>
+<p>sleep：</p>
+<ul>
+<li>sleep()是Thread类中的静态方法</li>
+<li>当线程调用它时，不释放锁</li>
+</ul>
+<p>yield()：</p>
+<ul>
+<li>临时暂停当前正在执行的线程，来让有同样优先级的正在等待的线程有机会执行</li>
+<li>线程调用它时，只释放线程所占用的CPU</li>
+</ul>
 
         </div>
           
